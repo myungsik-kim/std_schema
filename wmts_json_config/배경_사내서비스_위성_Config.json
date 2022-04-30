@@ -1,0 +1,1053 @@
+{
+  "serviceName": "standard_schema_sat",
+  "type": "lvt",
+  "serviceDescription": {
+    "created": "20201028_115100",
+    "updated": "20201123_113706",
+    "author": "권필",
+    "relatedService": "배경 위성",
+    "relatedClient": "표준스키마",
+    "notice": "기 분리된 LVT를 Polygon/Polyline으로 통합 위성",
+    "explanation": "통합 LVT 위성"
+  },
+  "config": {
+    "dataSources": [{
+      "description": "표준 데이터 한국",
+      "dataSourceName": "std_kor",
+      "driverClassName": "org.postgresql.Driver",
+      "url": "jdbc:postgresql://10.113.132.168:10432/postgres",
+      "username": "irteam",
+      "password": "postgres"
+    },
+    {
+      "description": "표준 데이터 글로벌",
+      "dataSourceName": "std_osm",
+      "driverClassName": "org.postgresql.Driver",
+      "url": "jdbc:postgresql://10.113.132.168:10432/osm_sample",
+      "username": "irteam",
+      "password": "postgres"
+    }],
+    "dataSet": {
+      "road_line_sat=osm": {
+        "description": "도로//일반지도Copy해오자",
+        "dataSource": "std_osm",
+        "enabled": true,
+        "coreFraction": 0.9,
+        "levelSet": [{
+          "extractQuery": "select minlv, maxlv, std_code, cate1, cate2, cate3, rel_z_road, iso_country_code, ${shape} from osm_standard_road_line where ${intersects}",
+          "sourceName": "osm_standard_road_line",
+          "cacheSource": false,
+          "visibleRange": [{
+              "filter": "minlv <= 5 and maxlv >= 5",
+              "minLevel": 5,
+              "maxLevel": 5
+            },
+            {
+              "filter": "minlv <= 6 and maxlv >= 6",
+              "minLevel": 6,
+              "maxLevel": 6
+            },
+            {
+              "filter": "minlv <= 7 and maxlv >= 7",
+              "minLevel": 7,
+              "maxLevel": 7
+            },
+            {
+              "filter": "minlv <= 8 and maxlv >= 8",
+              "minLevel": 8,
+              "maxLevel": 8
+            },
+            {
+              "filter": "minlv <= 9 and maxlv >= 9",
+              "minLevel": 9,
+              "maxLevel": 9
+            },
+            {
+              "filter": "minlv <= 10 and maxlv >= 10",
+              "minLevel": 10,
+              "maxLevel": 10
+            },
+            {
+              "filter": "minlv <= 11 and maxlv >= 11",
+              "minLevel": 11,
+              "maxLevel": 11
+            },
+            {
+              "filter": "minlv <= 12 and maxlv >= 12",
+              "minLevel": 12,
+              "maxLevel": 12
+            },
+            {
+              "filter": "minlv <= 13 and maxlv >= 13",
+              "minLevel": 13,
+              "maxLevel": 13
+            },
+            {
+              "filter": "minlv <= 14 and maxlv >= 14",
+              "minLevel": 14,
+              "maxLevel": 14
+            },
+            {
+              "filter": "minlv <= 15 and maxlv >= 15",
+              "minLevel": 15,
+              "maxLevel": 15
+            },
+            {
+              "filter": "minlv <= 16 and maxlv >= 16",
+              "minLevel": 16,
+              "maxLevel": 16
+            },
+            {
+              "filter": "minlv <= 17 and maxlv >= 17",
+              "minLevel": 17,
+              "maxLevel": 17
+            },
+            {
+              "filter": "minlv <= 18 and maxlv >= 18",
+              "minLevel": 18,
+              "maxLevel": 18
+            },
+            {
+              "filter": "minlv <= 19 and maxlv >= 19",
+              "minLevel": 19,
+              "maxLevel": 19
+            },
+            {
+              "filter": "minlv <= 20 and maxlv >= 20",
+              "minLevel": 20,
+              "maxLevel": 20
+            },
+            {
+              "filter": "minlv <= 21 and maxlv >= 21",
+              "minLevel": 21,
+              "maxLevel": 21
+            },
+            {
+              "filter": "minlv <= 22 and maxlv >= 22",
+              "minLevel": 22,
+              "maxLevel": 22
+            }
+          ]
+        }],
+        "targetLevel": 15,
+        "taskLevel": 10,
+        "targetExtent": {
+          "minx": -20026376.39,
+          "miny": -20048966.1,
+          "maxx": 20026376.39,
+          "maxy": 20048966.1
+        },
+        "functions": [
+          "road_line_dissolve",
+          "simplify"
+        ]
+      },
+      "road_line_sat=kor": {
+        "description": "도로",
+        "dataSource": "std_kor",
+        "enabled": true,
+        "coreFraction": 0.9,
+        "levelSet": [{
+          "extractQuery": "select minlv, maxlv, std_code, cate1, cate2, cate3, rel_z_road, 'KOR' as iso_country_code, ${shape} from kor_standard_road_line_sat where ${intersects}",
+          "sourceName": "kor_standard_road_line_sat",
+          "cacheSource": false,
+          "visibleRange": [{
+              "filter": "minlv <= 5 and maxlv >= 5",
+              "minLevel": 5,
+              "maxLevel": 5
+            },
+            {
+              "filter": "minlv <= 6 and maxlv >= 6",
+              "minLevel": 6,
+              "maxLevel": 6
+            },
+            {
+              "filter": "minlv <= 7 and maxlv >= 7",
+              "minLevel": 7,
+              "maxLevel": 7
+            },
+            {
+              "filter": "minlv <= 8 and maxlv >= 8",
+              "minLevel": 8,
+              "maxLevel": 8
+            },
+            {
+              "filter": "minlv <= 9 and maxlv >= 9",
+              "minLevel": 9,
+              "maxLevel": 9
+            },
+            {
+              "filter": "minlv <= 10 and maxlv >= 10",
+              "minLevel": 10,
+              "maxLevel": 10
+            },
+            {
+              "filter": "minlv <= 11 and maxlv >= 11",
+              "minLevel": 11,
+              "maxLevel": 11
+            },
+            {
+              "filter": "minlv <= 12 and maxlv >= 12",
+              "minLevel": 12,
+              "maxLevel": 12
+            },
+            {
+              "filter": "minlv <= 13 and maxlv >= 13",
+              "minLevel": 13,
+              "maxLevel": 13
+            },
+            {
+              "filter": "minlv <= 14 and maxlv >= 14",
+              "minLevel": 14,
+              "maxLevel": 14
+            },
+            {
+              "filter": "minlv <= 15 and maxlv >= 15",
+              "minLevel": 15,
+              "maxLevel": 15
+            },
+            {
+              "filter": "minlv <= 16 and maxlv >= 16",
+              "minLevel": 16,
+              "maxLevel": 16
+            },
+            {
+              "filter": "minlv <= 17 and maxlv >= 17",
+              "minLevel": 17,
+              "maxLevel": 17
+            },
+            {
+              "filter": "minlv <= 18 and maxlv >= 18",
+              "minLevel": 18,
+              "maxLevel": 18
+            },
+            {
+              "filter": "minlv <= 19 and maxlv >= 19",
+              "minLevel": 19,
+              "maxLevel": 19
+            },
+            {
+              "filter": "minlv <= 20 and maxlv >= 20",
+              "minLevel": 20,
+              "maxLevel": 20
+            },
+            {
+              "filter": "minlv <= 21 and maxlv >= 21",
+              "minLevel": 21,
+              "maxLevel": 21
+            },
+            {
+              "filter": "minlv <= 22 and maxlv >= 22",
+              "minLevel": 22,
+              "maxLevel": 22
+            }
+          ]
+        }],
+        "targetLevel": 15,
+        "taskLevel": 10,
+        "targetExtent": {
+          "minx": -20026376.39,
+          "miny": -20048966.1,
+          "maxx": 20026376.39,
+          "maxy": 20048966.1
+        },
+        "functions": [
+          "road_line_dissolve",
+          "simplify"
+        ]
+      },
+      "subway_line_sat=osm": {
+        "description": "지하철//일반지도꺼 Copy가능",
+        "dataSource": "std_osm",
+        "enabled": true,
+        "coreFraction": 0.9,
+        "levelSet": [
+          {
+            "extractQuery": "select minlv, maxlv, std_code, cate1, cate2, cate3, iso_country_code, ${shape} from osm_standard_subway_line where ${intersects}",
+            "sourceName": "osm_standard_subway_line",
+            "cacheSource": false,
+            "visibleRange": [
+              {
+                "filter": "minlv <= 11 and maxlv >= 11",
+                "minLevel": 11,
+                "maxLevel": 11
+              },
+              {
+                "filter": "minlv <= 12 and maxlv >= 12",
+                "minLevel": 12,
+                "maxLevel": 12
+              },
+              {
+                "filter": "minlv <= 13 and maxlv >= 13",
+                "minLevel": 13,
+                "maxLevel": 13
+              },
+              {
+                "filter": "minlv <= 14 and maxlv >= 14",
+                "minLevel": 14,
+                "maxLevel": 14
+              },
+              {
+                "filter": "minlv <= 15 and maxlv >= 15",
+                "minLevel": 15,
+                "maxLevel": 15
+              },
+              {
+                "filter": "minlv <= 16 and maxlv >= 16",
+                "minLevel": 16,
+                "maxLevel": 16
+              },
+              {
+                "filter": "minlv <= 17 and maxlv >= 17",
+                "minLevel": 17,
+                "maxLevel": 17
+              },
+              {
+                "filter": "minlv <= 18 and maxlv >= 18",
+                "minLevel": 18,
+                "maxLevel": 18
+              },
+              {
+                "filter": "minlv <= 19 and maxlv >= 19",
+                "minLevel": 19,
+                "maxLevel": 19
+              },
+              {
+                "filter": "minlv <= 20 and maxlv >= 20",
+                "minLevel": 20,
+                "maxLevel": 20
+              },
+              {
+                "filter": "minlv <= 21 and maxlv >= 21",
+                "minLevel": 21,
+                "maxLevel": 21
+              },
+              {
+                "filter": "minlv <= 22 and maxlv >= 22",
+                "minLevel": 22,
+                "maxLevel": 22
+              }
+            ]
+          }
+        ],
+        "targetLevel": 15,
+        "taskLevel": 10,
+        "targetExtent": {
+          "minx": -20026376.39,
+          "miny": -20048966.1,
+          "maxx": 20026376.39,
+          "maxy": 20048966.1
+        },
+        "functions": [
+          "simplify",
+          "subway_line_dissolve"
+        ]
+      },
+      "subway_line_sat=kor": {
+        "description": "지하철//일반지도꺼 Copy가능",
+        "dataSource": "std_kor",
+        "enabled": true,
+        "coreFraction": 0.9,
+        "levelSet": [
+          {
+            "extractQuery": "select minlv, maxlv, std_code, cate1, cate2, cate3, 'KOR' as iso_country_code, ${shape} from kor_standard_subway_line where ${intersects}",
+            "sourceName": "kor_standard_subway_line",
+            "cacheSource": false,
+            "visibleRange": [
+              {
+                "filter": "minlv <= 11 and maxlv >= 11",
+                "minLevel": 11,
+                "maxLevel": 11
+              },
+              {
+                "filter": "minlv <= 12 and maxlv >= 12",
+                "minLevel": 12,
+                "maxLevel": 12
+              },
+              {
+                "filter": "minlv <= 13 and maxlv >= 13",
+                "minLevel": 13,
+                "maxLevel": 13
+              },
+              {
+                "filter": "minlv <= 14 and maxlv >= 14",
+                "minLevel": 14,
+                "maxLevel": 14
+              },
+              {
+                "filter": "minlv <= 15 and maxlv >= 15",
+                "minLevel": 15,
+                "maxLevel": 15
+              },
+              {
+                "filter": "minlv <= 16 and maxlv >= 16",
+                "minLevel": 16,
+                "maxLevel": 16
+              },
+              {
+                "filter": "minlv <= 17 and maxlv >= 17",
+                "minLevel": 17,
+                "maxLevel": 17
+              },
+              {
+                "filter": "minlv <= 18 and maxlv >= 18",
+                "minLevel": 18,
+                "maxLevel": 18
+              },
+              {
+                "filter": "minlv <= 19 and maxlv >= 19",
+                "minLevel": 19,
+                "maxLevel": 19
+              },
+              {
+                "filter": "minlv <= 20 and maxlv >= 20",
+                "minLevel": 20,
+                "maxLevel": 20
+              },
+              {
+                "filter": "minlv <= 21 and maxlv >= 21",
+                "minLevel": 21,
+                "maxLevel": 21
+              },
+              {
+                "filter": "minlv <= 22 and maxlv >= 22",
+                "minLevel": 22,
+                "maxLevel": 22
+              }
+            ]
+          }
+        ],
+        "targetLevel": 15,
+        "taskLevel": 10,
+        "targetExtent": {
+          "minx": -20026376.39,
+          "miny": -20048966.1,
+          "maxx": 20026376.39,
+          "maxy": 20048966.1
+        },
+        "functions": [
+          "simplify",
+          "subway_line_dissolve"
+        ]
+      },
+      "subway_station_sat=kor": {
+        "description": "지하철역사//일반지도Copy해오자",
+        "dataSource": "std_kor",
+        "enabled": true,
+        "coreFraction": 0.9,
+        "levelSet": [
+          {
+            "extractQuery": "select minlv, maxlv, std_code, cate1, cate2, cate3, 'KOR' as iso_country_code, ${shape} from kor_standard_subway_station where ${intersects}",
+            "sourceName": "kor_standard_subway_station",
+            "cacheSource": false,
+            "visibleRange": [
+              {
+                "filter": "minlv <= 15 and maxlv >= 15",
+                "minLevel": 15,
+                "maxLevel": 15
+              },
+              {
+                "filter": "minlv <= 16 and maxlv >= 16",
+                "minLevel": 16,
+                "maxLevel": 16
+              },
+              {
+                "filter": "minlv <= 17 and maxlv >= 17",
+                "minLevel": 17,
+                "maxLevel": 17
+              },
+              {
+                "filter": "minlv <= 18 and maxlv >= 18",
+                "minLevel": 18,
+                "maxLevel": 18
+              },
+              {
+                "filter": "minlv <= 19 and maxlv >= 19",
+                "minLevel": 19,
+                "maxLevel": 19
+              },
+              {
+                "filter": "minlv <= 20 and maxlv >= 20",
+                "minLevel": 20,
+                "maxLevel": 20
+              },
+              {
+                "filter": "minlv <= 21 and maxlv >= 21",
+                "minLevel": 21,
+                "maxLevel": 21
+              },
+              {
+                "filter": "minlv <= 22 and maxlv >= 22",
+                "minLevel": 22,
+                "maxLevel": 22
+              }
+            ]
+          }
+        ],
+        "targetLevel": 17,
+        "taskLevel": 10,
+        "targetExtent": {
+          "minx": -20026376.39,
+          "miny": -20048966.1,
+          "maxx": 20026376.39,
+          "maxy": 20048966.1
+        },
+        "functions": [
+          "subway_line_dissolve"
+        ]
+      },
+      "union_line_sat=osm": {
+        "description": "라인통합//일반지도Copy해오자",
+        "dataSource": "std_osm",
+        "enabled": true,
+        "coreFraction": 0.9,
+        "levelSet": [{
+          "extractQuery": "select minlv, maxlv, std_code, cate1, cate2, cate3, iso_country_code, ${shape} from osm_standard_union_line where ${intersects}",
+          "sourceName": "osm_standard_union_line",
+          "cacheSource": false,
+          "visibleRange": [{
+              "filter": "minlv <= 0 and maxlv >= 0",
+              "minLevel": 0,
+              "maxLevel": 0
+            },
+            {
+              "filter": "minlv <= 1 and maxlv >= 1",
+              "minLevel": 1,
+              "maxLevel": 1
+            },
+            {
+              "filter": "minlv <= 2 and maxlv >= 2",
+              "minLevel": 2,
+              "maxLevel": 2
+            },
+            {
+              "filter": "minlv <= 3 and maxlv >= 3",
+              "minLevel": 3,
+              "maxLevel": 3
+            },
+            {
+              "filter": "minlv <= 4 and maxlv >= 4",
+              "minLevel": 4,
+              "maxLevel": 4
+            },
+            {
+              "filter": "minlv <= 5 and maxlv >= 5",
+              "minLevel": 5,
+              "maxLevel": 5
+            },
+            {
+              "filter": "minlv <= 6 and maxlv >= 6",
+              "minLevel": 6,
+              "maxLevel": 6
+            },
+            {
+              "filter": "minlv <= 7 and maxlv >= 7",
+              "minLevel": 7,
+              "maxLevel": 7
+            },
+            {
+              "filter": "minlv <= 8 and maxlv >= 8",
+              "minLevel": 8,
+              "maxLevel": 8
+            },
+            {
+              "filter": "minlv <= 9 and maxlv >= 9",
+              "minLevel": 9,
+              "maxLevel": 9
+            },
+            {
+              "filter": "minlv <= 10 and maxlv >= 10",
+              "minLevel": 10,
+              "maxLevel": 10
+            },
+            {
+              "filter": "minlv <= 11 and maxlv >= 11",
+              "minLevel": 11,
+              "maxLevel": 11
+            },
+            {
+              "filter": "minlv <= 12 and maxlv >= 12",
+              "minLevel": 12,
+              "maxLevel": 12
+            },
+            {
+              "filter": "minlv <= 13 and maxlv >= 13",
+              "minLevel": 13,
+              "maxLevel": 13
+            },
+            {
+              "filter": "minlv <= 14 and maxlv >= 14",
+              "minLevel": 14,
+              "maxLevel": 14
+            },
+            {
+              "filter": "minlv <= 15 and maxlv >= 15",
+              "minLevel": 15,
+              "maxLevel": 15
+            },
+            {
+              "filter": "minlv <= 16 and maxlv >= 16",
+              "minLevel": 16,
+              "maxLevel": 16
+            },
+            {
+              "filter": "minlv <= 17 and maxlv >= 17",
+              "minLevel": 17,
+              "maxLevel": 17
+            },
+            {
+              "filter": "minlv <= 18 and maxlv >= 18",
+              "minLevel": 18,
+              "maxLevel": 18
+            },
+            {
+              "filter": "minlv <= 19 and maxlv >= 19",
+              "minLevel": 19,
+              "maxLevel": 19
+            },
+            {
+              "filter": "minlv <= 20 and maxlv >= 20",
+              "minLevel": 20,
+              "maxLevel": 20
+            },
+            {
+              "filter": "minlv <= 21 and maxlv >= 21",
+              "minLevel": 21,
+              "maxLevel": 21
+            },
+            {
+              "filter": "minlv <= 22 and maxlv >= 22",
+              "minLevel": 22,
+              "maxLevel": 22
+            }
+          ]
+        }],
+        "targetLevel": 15,
+        "taskLevel": 10,
+        "targetExtent": {
+          "minx": -20026376.39,
+          "miny": -20048966.1,
+          "maxx": 20026376.39,
+          "maxy": 20048966.1
+        },
+        "functions": [
+          "std_code_dissolve",
+          "simplify"
+        ]
+      },
+      "union_line_sat=kor": {
+        "description": "라인통합",
+        "dataSource": "std_kor",
+        "enabled": true,
+        "coreFraction": 0.9,
+        "levelSet": [{
+          "extractQuery": "select minlv, maxlv, std_code, cate1, cate2, cate3, 'KOR' as iso_country_code, ${shape} from kor_standard_union_line_sat where ${intersects}",
+          "sourceName": "kor_standard_union_line_sat",
+          "cacheSource": false,
+          "visibleRange": [{
+              "filter": "minlv <= 0 and maxlv >= 0",
+              "minLevel": 0,
+              "maxLevel": 0
+            },
+            {
+              "filter": "minlv <= 1 and maxlv >= 1",
+              "minLevel": 1,
+              "maxLevel": 1
+            },
+            {
+              "filter": "minlv <= 2 and maxlv >= 2",
+              "minLevel": 2,
+              "maxLevel": 2
+            },
+            {
+              "filter": "minlv <= 3 and maxlv >= 3",
+              "minLevel": 3,
+              "maxLevel": 3
+            },
+            {
+              "filter": "minlv <= 4 and maxlv >= 4",
+              "minLevel": 4,
+              "maxLevel": 4
+            },
+            {
+              "filter": "minlv <= 5 and maxlv >= 5",
+              "minLevel": 5,
+              "maxLevel": 5
+            },
+            {
+              "filter": "minlv <= 6 and maxlv >= 6",
+              "minLevel": 6,
+              "maxLevel": 6
+            },
+            {
+              "filter": "minlv <= 7 and maxlv >= 7",
+              "minLevel": 7,
+              "maxLevel": 7
+            },
+            {
+              "filter": "minlv <= 8 and maxlv >= 8",
+              "minLevel": 8,
+              "maxLevel": 8
+            },
+            {
+              "filter": "minlv <= 9 and maxlv >= 9",
+              "minLevel": 9,
+              "maxLevel": 9
+            },
+            {
+              "filter": "minlv <= 10 and maxlv >= 10",
+              "minLevel": 10,
+              "maxLevel": 10
+            },
+            {
+              "filter": "minlv <= 11 and maxlv >= 11",
+              "minLevel": 11,
+              "maxLevel": 11
+            },
+            {
+              "filter": "minlv <= 12 and maxlv >= 12",
+              "minLevel": 12,
+              "maxLevel": 12
+            },
+            {
+              "filter": "minlv <= 13 and maxlv >= 13",
+              "minLevel": 13,
+              "maxLevel": 13
+            },
+            {
+              "filter": "minlv <= 14 and maxlv >= 14",
+              "minLevel": 14,
+              "maxLevel": 14
+            },
+            {
+              "filter": "minlv <= 15 and maxlv >= 15",
+              "minLevel": 15,
+              "maxLevel": 15
+            },
+            {
+              "filter": "minlv <= 16 and maxlv >= 16",
+              "minLevel": 16,
+              "maxLevel": 16
+            },
+            {
+              "filter": "minlv <= 17 and maxlv >= 17",
+              "minLevel": 17,
+              "maxLevel": 17
+            },
+            {
+              "filter": "minlv <= 18 and maxlv >= 18",
+              "minLevel": 18,
+              "maxLevel": 18
+            },
+            {
+              "filter": "minlv <= 19 and maxlv >= 19",
+              "minLevel": 19,
+              "maxLevel": 19
+            },
+            {
+              "filter": "minlv <= 20 and maxlv >= 20",
+              "minLevel": 20,
+              "maxLevel": 20
+            },
+            {
+              "filter": "minlv <= 21 and maxlv >= 21",
+              "minLevel": 21,
+              "maxLevel": 21
+            },
+            {
+              "filter": "minlv <= 22 and maxlv >= 22",
+              "minLevel": 22,
+              "maxLevel": 22
+            }
+          ]
+        }],
+        "targetLevel": 15,
+        "taskLevel": 10,
+        "targetExtent": {
+          "minx": -20026376.39,
+          "miny": -20048966.1,
+          "maxx": 20026376.39,
+          "maxy": 20048966.1
+        },
+        "functions": [
+          "std_code_dissolve",
+          "simplify"
+        ]
+      },
+      "label_path_sat=osm": {
+        "description": "흐르는주기//일반지도Copy해오자",
+        "dataSource": "std_osm",
+        "enabled": true,
+        "coreFraction": 0.9,
+        "levelSet": [{
+          "extractQuery": "select minlv, maxlv, std_code, cate1, cate2, cate3, dp_name, angle, iso_country_code, ${shape} from osm_standard_label_path where ${intersects}",
+          "sourceName": "osm_standard_label_path",
+          "cacheSource": false,
+          "visibleRange": [{
+              "filter": "minlv <= 6 and maxlv >= 6",
+              "minLevel": 6,
+              "maxLevel": 6
+            },
+            {
+              "filter": "minlv <= 7 and maxlv >= 7",
+              "minLevel": 7,
+              "maxLevel": 7
+            },
+            {
+              "filter": "minlv <= 8 and maxlv >= 8",
+              "minLevel": 8,
+              "maxLevel": 8
+            },
+            {
+              "filter": "minlv <= 9 and maxlv >= 9",
+              "minLevel": 9,
+              "maxLevel": 9
+            },
+            {
+              "filter": "minlv <= 10 and maxlv >= 10",
+              "minLevel": 10,
+              "maxLevel": 10
+            },
+            {
+              "filter": "minlv <= 11 and maxlv >= 11",
+              "minLevel": 11,
+              "maxLevel": 11
+            },
+            {
+              "filter": "minlv <= 12 and maxlv >= 12",
+              "minLevel": 12,
+              "maxLevel": 12
+            },
+            {
+              "filter": "minlv <= 13 and maxlv >= 13",
+              "minLevel": 13,
+              "maxLevel": 13
+            },
+            {
+              "filter": "minlv <= 14 and maxlv >= 14",
+              "minLevel": 14,
+              "maxLevel": 14
+            },
+            {
+              "filter": "minlv <= 15 and maxlv >= 15",
+              "minLevel": 15,
+              "maxLevel": 15
+            },
+            {
+              "filter": "minlv <= 16 and maxlv >= 16",
+              "minLevel": 16,
+              "maxLevel": 16
+            },
+            {
+              "filter": "minlv <= 17 and maxlv >= 22",
+              "minLevel": 17,
+              "maxLevel": 22
+            }
+          ]
+        }],
+        "targetLevel": 15,
+        "taskLevel": 10,
+        "targetExtent": {
+          "minx": -20026376.39,
+          "miny": -20048966.1,
+          "maxx": 20026376.39,
+          "maxy": 20048966.1
+        },
+        "functions": [
+          "std_code_name_dissolve",
+          "simplify_1"
+        ]
+      },
+      "label_path_sat=kor": {
+        "description": "흐르는주기//일반지도Copy해오자",
+        "dataSource": "std_kor",
+        "enabled": true,
+        "coreFraction": 0.9,
+        "levelSet": [{
+          "extractQuery": "select minlv, maxlv, std_code, cate1, cate2, cate3, dp_name, angle, 'KOR' as iso_country_code, ${shape} from kor_standard_label_path_sat where ${intersects}",
+          "sourceName": "kor_standard_label_path_sat",
+          "cacheSource": false,
+          "visibleRange": [{
+              "filter": "minlv <= 6 and maxlv >= 6",
+              "minLevel": 6,
+              "maxLevel": 6
+            },
+            {
+              "filter": "minlv <= 7 and maxlv >= 7",
+              "minLevel": 7,
+              "maxLevel": 7
+            },
+            {
+              "filter": "minlv <= 8 and maxlv >= 8",
+              "minLevel": 8,
+              "maxLevel": 8
+            },
+            {
+              "filter": "minlv <= 9 and maxlv >= 9",
+              "minLevel": 9,
+              "maxLevel": 9
+            },
+            {
+              "filter": "minlv <= 10 and maxlv >= 10",
+              "minLevel": 10,
+              "maxLevel": 10
+            },
+            {
+              "filter": "minlv <= 11 and maxlv >= 11",
+              "minLevel": 11,
+              "maxLevel": 11
+            },
+            {
+              "filter": "minlv <= 12 and maxlv >= 12",
+              "minLevel": 12,
+              "maxLevel": 12
+            },
+            {
+              "filter": "minlv <= 13 and maxlv >= 13",
+              "minLevel": 13,
+              "maxLevel": 13
+            },
+            {
+              "filter": "minlv <= 14 and maxlv >= 14",
+              "minLevel": 14,
+              "maxLevel": 14
+            },
+            {
+              "filter": "minlv <= 15 and maxlv >= 15",
+              "minLevel": 15,
+              "maxLevel": 15
+            },
+            {
+              "filter": "minlv <= 16 and maxlv >= 16",
+              "minLevel": 16,
+              "maxLevel": 16
+            },
+            {
+              "filter": "minlv <= 17 and maxlv >= 22",
+              "minLevel": 17,
+              "maxLevel": 22
+            }
+          ]
+        }],
+        "targetLevel": 15,
+        "taskLevel": 10,
+        "targetExtent": {
+          "minx": -20026376.39,
+          "miny": -20048966.1,
+          "maxx": 20026376.39,
+          "maxy": 20048966.1
+        },
+        "functions": [
+          "std_code_name_dissolve",
+          "simplify_1"
+        ]
+      }
+    },
+    "functions": [
+      {
+        "name": "simplify",
+        "function": "Simplify",
+        "parameter": {
+          "minLevel": 0,
+          "maxLevel": 17,
+          "levelDepth": 0,
+          "pixel": 1,
+          "validation": true,
+          "topologyPreserving": true
+        }
+      },
+      {
+        "name": "simplify_1",
+        "function": "Simplify",
+        "parameter": {
+          "minLevel": 0,
+          "maxLevel": 22,
+          "levelDepth": 0,
+          "pixel": 1,
+          "topologyPreserving": true
+        }
+      },
+      {
+        "name": "road_line_dissolve",
+        "function": "Dissolve",
+        "parameter": {
+          "targetLevel": 0,
+          "keepFields": true,
+          "fields": [
+            "rel_z_road",
+            "iso_country_code"
+          ]
+        }
+      },
+      {
+        "name": "std_code_name_dissolve",
+        "function": "Dissolve",
+        "parameter": {
+          "targetLevel": 0,
+          "keepFields": true,
+          "fields": [
+            "std_code",
+            "angle",
+            "dp_name",
+            "road_name",
+            "iso_country_code"
+          ]
+        }
+      },
+      {
+        "name": "std_code_dissolve",
+        "function": "Dissolve",
+        "parameter": {
+          "targetLevel": 0,
+          "keepFields": true,
+          "fields": [
+            "std_code",
+            "iso_country_code"
+          ]
+        }
+      },
+      {
+        "name": "subway_line_dissolve",
+        "function": "Dissolve",
+        "parameter": {
+          "targetLevel": 0,
+          "keepFields": true,
+          "fields": [
+            "cate3",
+            "cate2",
+            "iso_country_code"
+          ]
+        }
+      },
+      {
+        "name": "sort_key_dissolve",
+        "function": "Dissolve",
+        "parameter": {
+          "targetLevel": 0,
+          "keepFields": true,
+          "fields": [
+            "rel_z_poly_road",
+            "rel_z",
+            "std_code",
+            "rel_z_golf",
+            "color",
+            "cate3",
+            "iso_country_code"
+          ]
+        }
+      },
+      {
+        "name": "geometryDissolve",
+        "function": "Dissolve",
+        "parameter": {
+          "targetLevel": 0,
+          "keepFields": true,
+          "fields": []
+        }
+      }
+    ],
+    "createMVT": false,
+    "numThreads": 2
+  },
+  "order": 0
+}

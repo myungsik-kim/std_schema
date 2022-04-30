@@ -1,0 +1,295 @@
+{
+	"serviceName": "standard_schema_mountain",
+	"type": "lvt",
+	"serviceDescription": {
+		"created": "20201028_115100",
+		"updated": "20210309_103626",
+		"author": "권필",
+		"relatedService": "배경",
+		"relatedClient": "표준스키마",
+		"notice": "기 분리된 LVT를 Polygon/Polyline으로 통합",
+		"explanation": "통합 LVT"
+	},
+	"config": {
+		"dataSources": [{
+				"description": "표준 데이터",
+				"dataSourceName": "std",
+				"driverClassName": "org.postgresql.Driver",
+				"url": "jdbc:postgresql://10.113.132.168:10432/osm_sample",
+				"username": "irteam",
+				"password": "postgres"
+			},
+			{
+				"description": "배경 데이터",
+				"dataSourceName": "korea",
+				"driverClassName": "org.postgresql.Driver",
+				"url": "jdbc:postgresql://10.114.239.46:10432/dawul",
+				"username": "irteam",
+				"password": "postgres"
+			}
+		],
+		"dataSet": {
+			"contour_line=kor": {
+				"description": "등고선",
+				"dataSource": "std",
+				"enabled": true,
+				"coreFraction": 0.9,
+				"levelSet": [{
+					"extractQuery": "select minlv, maxlv, std_code, cate1, cate2, cate3, ${shape} from kor_standard_contour_line where ${intersects}",
+					"sourceName": "kor_standard_contour_line",
+					"cacheSource": false,
+					"visibleRange": [{
+							"filter": "minlv <= 13 and maxlv >= 13",
+							"minLevel": 13,
+							"maxLevel": 13
+						},
+						{
+							"filter": "minlv <= 14 and maxlv >= 14",
+							"minLevel": 14,
+							"maxLevel": 14
+						},
+						{
+							"filter": "minlv <= 15 and maxlv >= 15",
+							"minLevel": 15,
+							"maxLevel": 15
+						},
+						{
+							"filter": "minlv <= 16 and maxlv >= 16",
+							"minLevel": 16,
+							"maxLevel": 16
+						},
+						{
+							"filter": "minlv <= 17 and maxlv >= 17",
+							"minLevel": 17,
+							"maxLevel": 17
+						},
+						{
+							"filter": "minlv <= 18 and maxlv >= 18",
+							"minLevel": 18,
+							"maxLevel": 18
+						},
+						{
+							"filter": "minlv <= 19 and maxlv >= 19",
+							"minLevel": 19,
+							"maxLevel": 19
+						},
+						{
+							"filter": "minlv <= 20 and maxlv >= 20",
+							"minLevel": 20,
+							"maxLevel": 20
+						},
+						{
+							"filter": "minlv <= 21 and maxlv >= 21",
+							"minLevel": 21,
+							"maxLevel": 21
+						},
+						{
+							"filter": "minlv <= 22 and maxlv >= 22",
+							"minLevel": 22,
+							"maxLevel": 22
+						}
+					]
+				}],
+				"targetLevel": 13,
+				"taskLevel": 10,
+				"targetExtent": {
+					"minx": -20026376.39,
+					"miny": -20048966.1,
+					"maxx": 20026376.39,
+					"maxy": 20048966.1
+				},
+				"functions": [
+					"std_code_dissolve"
+				]
+			},
+			"bg_mountain_road_l": {
+				"dataSource": "korea",
+				"enabled": true,
+				"coreFraction": 0.9,
+				"levelSet": [{
+						"extractQuery": "select dp_code,mt_grade,dp_name,dp_name1,gubun,gubun_nm,mfire,mfire_nm,mfire1,mfire_nm1,${shape} from \"k25_bg_mountain_road_l\"  where  ${intersects} ",
+						"sourceName": "k25_bg_mountain_road_l",
+						"cacheSource": false,
+						"visibleRange": [{
+								"filter": "(\"dp_code\" In ('240103') AND \"mt_grade\" In ('1','2'))",
+								"minLevel": 12,
+								"maxLevel": 12
+							},
+							{
+								"filter": "(\"dp_code\" In ('240104', '240103', '240501') AND \"mt_grade\" In ('1','2','3'))",
+								"minLevel": 13,
+								"maxLevel": 13
+							}
+						]
+					},
+					{
+						"extractQuery": "select dp_code,mt_grade,dp_name,dp_name1,gubun,gubun_nm,mfire,mfire_nm,mfire1,mfire_nm1,${shape} from \"k5_bg_mountain_road_l\"  where  ${intersects} ",
+						"sourceName": "k5_bg_mountain_road_l",
+						"cacheSource": false,
+						"visibleRange": [{
+							"filter": "(\"dp_code\" In ('240102', '240101', '240106', '240501') AND \"mt_grade\" In ('1','2','3'))",
+							"minLevel": 14,
+							"maxLevel": 22
+						}]
+					}
+				],
+				"targetLevel": 17,
+				"taskLevel": 10,
+				"targetExtent": {
+					"minx": 13619243.95,
+					"miny": 3717897.055,
+					"maxx": 14832452.463,
+					"maxy": 5361598.911
+				}
+			}
+		},
+		"functions": [{
+				"name": "simplify",
+				"function": "Simplify",
+				"parameter": {
+					"minLevel": 0,
+					"maxLevel": 17,
+					"levelDepth": 0,
+					"pixel": 1,
+					"validation": true,
+					"topologyPreserving": true
+				}
+			},
+			{
+				"name": "simplify_1",
+				"function": "Simplify",
+				"parameter": {
+					"minLevel": 0,
+					"maxLevel": 22,
+					"levelDepth": 0,
+					"pixel": 1,
+					"topologyPreserving": true
+				}
+			},
+			{
+				"name": "road_line_dissolve",
+				"function": "Dissolve",
+				"parameter": {
+					"targetLevel": 0,
+					"keepFields": true,
+					"fields": [
+						"rel_z_road"
+					]
+				}
+			},
+			{
+				"name": "std_code_name_dissolve",
+				"function": "Dissolve",
+				"parameter": {
+					"targetLevel": 0,
+					"keepFields": true,
+					"fields": [
+						"std_code",
+						"angle",
+						"dp_name",
+						"road_name"
+					]
+				}
+			},
+			{
+				"name": "std_code_dissolve",
+				"function": "Dissolve",
+				"parameter": {
+					"targetLevel": 0,
+					"keepFields": true,
+					"fields": [
+						"std_code"
+					]
+				}
+			},
+			{
+				"name": "contour_polygon_dissolve",
+				"function": "Dissolve",
+				"parameter": {
+					"targetLevel": 0,
+					"keepFields": true,
+					"fields": [
+						"rel_z"
+					]
+				}
+			},
+			{
+				"name": "contour_polygon_dissolve",
+				"function": "Dissolve",
+				"parameter": {
+					"targetLevel": 0,
+					"keepFields": true,
+					"fields": [
+						"rel_z_golf"
+					]
+				}
+			},
+			{
+				"name": "everland_dissolve",
+				"function": "Dissolve",
+				"parameter": {
+					"targetLevel": 0,
+					"keepFields": true,
+					"fields": [
+						"color"
+					]
+				}
+			},
+			{
+				"name": "subway_line_dissolve",
+				"function": "Dissolve",
+				"parameter": {
+					"targetLevel": 0,
+					"keepFields": true,
+					"fields": [
+						"cate3"
+					]
+				}
+			},
+			{
+				"name": "sort_key_dissolve",
+				"function": "Dissolve",
+				"parameter": {
+					"targetLevel": 0,
+					"keepFields": true,
+					"fields": [
+						"rel_z_poly_road",
+						"rel_z",
+						"std_code",
+						"rel_z_golf",
+						"color",
+						"cate3"
+					]
+				}
+			},
+			{
+				"name": "geometryDissolve",
+				"function": "Dissolve",
+				"parameter": {
+					"targetLevel": 0,
+					"keepFields": true,
+					"fields": []
+				}
+			},
+			{
+				"name": "here_preBuffer",
+				"function": "Buffer",
+				"parameter": {
+					"levelDepth": 0,
+					"pixel": 1
+				}
+			},
+			{
+				"name": "here_postBuffer",
+				"function": "Buffer",
+				"parameter": {
+					"levelDepth": 0,
+					"pixel": -1
+				}
+			}
+		],
+		"createMVT": false,
+		"numThreads": 2
+	},
+	"order": 0
+}
